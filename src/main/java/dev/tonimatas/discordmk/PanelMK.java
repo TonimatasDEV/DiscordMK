@@ -32,6 +32,9 @@ public class PanelMK extends JPanel implements Runnable {
         graphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         graphics2D.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
         
+        Font font = new Font(graphics2D.getFont().getFontName(), Font.PLAIN, 14);
+        graphics2D.setFont(font);
+        
         // Paint toolbar
         toolbar.draw(this, graphics2D);
         graphics2D.scale(2, 2);
