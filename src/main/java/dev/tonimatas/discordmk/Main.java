@@ -1,23 +1,19 @@
 package dev.tonimatas.discordmk;
 
-import javax.swing.*;
+import dev.tonimatas.discordmk.api.NeutronPanel;
+import dev.tonimatas.discordmk.api.components.Toolbar;
+
+import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
-        JFrame window = new JFrame();
-        window.setResizable(true);
-        window.setTitle("DiscordMK");
-        
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        PanelMK panel = new PanelMK();
-        
-        window.add(panel);
-        window.setSize(1920, 1080);
-        
-        window.setLocationRelativeTo(null);
-        window.setVisible(true);
+        NeutronPanel neutronPanel = new NeutronPanel("DiscordMK", new Toolbar(0, 0, 25, Color.GREEN));
 
-        panel.start();
+        neutronPanel.window.setResizable(true);
+        neutronPanel.window.setSize(1920, 1080);
+
+        neutronPanel.window.setLocationRelativeTo(null);
+
+        neutronPanel.start();
     }
 }
