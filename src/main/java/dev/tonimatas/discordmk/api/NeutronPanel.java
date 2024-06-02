@@ -71,8 +71,25 @@ public class NeutronPanel extends JPanel implements Runnable {
             } else {
                 graphics2D.draw(shape);
             }
-            
+
             setDefaultDraw(graphics2D);
+
+            if (component.hasSubComponents()) {
+                for (Component subcomponent : component.getSubComponents()) {
+                    Shape subshape = subcomponent.generateShape(this);
+                    graphics2D.setColor(subcomponent.getColor());
+                    
+                    if (subcomponent.isFilled()) {
+                        graphics2D.fill(subshape);
+                    } else {
+                        graphics2D.draw(subshape);
+                    }
+
+                    setDefaultDraw(graphics2D);
+                    
+                    subcomponent.update(NeutronPanel.this, graphics2D);
+                }
+            }
             
             if (mousePos != null && shape.contains(mousePos)) {
                 component.onTouchingBounds(this, graphics2D);
@@ -82,19 +99,6 @@ public class NeutronPanel extends JPanel implements Runnable {
             
             component.update(this, graphics2D);
         }
-        
-        
-        
-        
-        //graphics2D.scale(2, 2);
-        //graphics2D.drawString("Hola buenas", 200, 200);
-        //setDefaultDraw(graphics2D);
-        //
-        //if (getMousePosition() != null) {
-        //    graphics2D.setStroke(new BasicStroke(3));
-        //    graphics2D.drawLine(getWidth()/2, getHeight()/2, getMousePosition().x, getMousePosition().y);
-        //    graphics2D.setStroke(defaultStroke);
-        //}
     }
     
     public void setDefaultDraw(Graphics2D graphics2D) {
@@ -103,6 +107,9 @@ public class NeutronPanel extends JPanel implements Runnable {
         graphics2D.setTransform(affineTransform);
     }
     
+    public void drawString(Graphics2D graphics2D, String text, int x, int y) {
+        graphics2D.drawString(text, x, y);
+    }
     
     public void start() {
         thread = new Thread(this);

@@ -26,10 +26,10 @@ public interface Component {
     }
     
     default boolean hasSubComponents() {
-        return false;
+        return !getSubComponents().isEmpty();
     }
     
-    default List<Component> getSubComponents(NeutronPanel panel) {
+    default List<Component> getSubComponents() {
         return Collections.emptyList();
     }
 }

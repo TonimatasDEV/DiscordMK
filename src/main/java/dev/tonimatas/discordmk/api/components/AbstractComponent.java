@@ -4,12 +4,12 @@ import dev.tonimatas.discordmk.api.NeutronPanel;
 
 import java.awt.*;
 
-public abstract class BasicComponent implements Component {
+public abstract class AbstractComponent implements Component {
     protected int x, y;
     protected Color color;
     protected boolean isMouseOver;
     
-    public BasicComponent(int x, int y, Color color) {
+    public AbstractComponent(int x, int y, Color color) {
         this.x = x;
         this.y = y;
         this.color = color;
