@@ -1,6 +1,7 @@
 package dev.discordmk.neutron;
 
 import dev.discordmk.neutron.components.NeutronMenuBar;
+import dev.discordmk.neutron.util.AssetGetter;
 
 import javax.swing.*;
 import java.util.Objects;
@@ -13,9 +14,9 @@ public class NeutronFrame extends JFrame {
         setSize(800, 600);
         setLocationRelativeTo(null);
         
-        
         setJMenuBar(new NeutronMenuBar());
-        
-        setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("/icon.png"))).getImage());
+
+        ImageIcon icon = AssetGetter.getImageIcon("icon");
+        if (icon != null) setIconImage(icon.getImage());
     }
 }
