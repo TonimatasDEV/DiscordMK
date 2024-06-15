@@ -4,20 +4,16 @@ import dev.discordmk.neutron.util.AssetGetter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 public class NeutronLoginFrame extends JFrame {
     public NeutronLoginFrame() {
+        super("DiscordMK");
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("DiscordMK");
         setSize(400, 200);
         setResizable(false);
         setLocationRelativeTo(null);
-        ImageIcon icon = AssetGetter.getImageIcon("icon");
-        if (icon != null) setIconImage(icon.getImage());
 
         JButton button = new JButton("Login");
         button.setPreferredSize(new Dimension(140, 40));
@@ -26,11 +22,17 @@ public class NeutronLoginFrame extends JFrame {
         if (githubIcon != null) button.setIcon(githubIcon);
         
         button.addActionListener((actionEvent) -> {
-            // DO THE LOGIN
+            try {
+                Desktop.getDesktop().browse(new URI("http://localhost:8080/oauth2/authorization/discord"));
+            } catch (Exception ignored) {
+            }
         });
         
         JPanel panel = new JPanel(new GridBagLayout());
         panel.add(button);
         add(panel, BorderLayout.CENTER);
+        
+        ImageIcon icon = AssetGetter.getImageIcon("icon");
+        if (icon != null) setIconImage(icon.getImage());
     }
 }
