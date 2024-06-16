@@ -10,7 +10,7 @@ public class NeutronLoginFrame extends JFrame {
     public NeutronLoginFrame() {
         super("DiscordMK");
         setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(400, 200);
         setResizable(false);
         setLocationRelativeTo(null);
@@ -27,7 +27,7 @@ public class NeutronLoginFrame extends JFrame {
             } catch (Exception ignored) {
             }
         });
-        
+
         JPanel panel = new JPanel(new GridBagLayout());
         panel.add(button);
         add(panel, BorderLayout.CENTER);
