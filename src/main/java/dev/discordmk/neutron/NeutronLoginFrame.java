@@ -20,7 +20,7 @@ public class NeutronLoginFrame extends JFrame {
         button.setFont(new Font(button.getFont().getName(), Font.BOLD, 16));
         ImageIcon githubIcon = AssetGetter.getImageIcon("github");
         if (githubIcon != null) button.setIcon(githubIcon);
-        
+
         button.addActionListener((actionEvent) -> {
             try {
                 Desktop.getDesktop().browse(new URI("http://localhost:8080/oauth2/authorization/discord"));
@@ -31,7 +31,7 @@ public class NeutronLoginFrame extends JFrame {
         JPanel panel = new JPanel(new GridBagLayout());
         panel.add(button);
         add(panel, BorderLayout.CENTER);
-        
+
         ImageIcon icon = AssetGetter.getImageIcon("icon");
         if (icon != null) setIconImage(icon.getImage());
     }

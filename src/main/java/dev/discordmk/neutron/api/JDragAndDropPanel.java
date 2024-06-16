@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent;
 
 public class JDragAndDropPanel extends JPanel {
     private Cursor movingCursor = Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR);
-    
+
     public JDragAndDropPanel() {
         MouseAdapter mouseAdapter = new MouseAdapter() {
             private Point initialClick;
@@ -34,7 +34,7 @@ public class JDragAndDropPanel extends JPanel {
         addMouseListener(mouseAdapter);
         addMouseMotionListener(mouseAdapter);
     }
-    
+
     public void setMouseCursor(Cursor cursor) {
         this.movingCursor = cursor;
     }

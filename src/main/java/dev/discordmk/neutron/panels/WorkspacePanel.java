@@ -11,13 +11,23 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class WorkspacePanel extends JPanel {
+    private final Image background;
     private int panelX;
     private int panelY;
-    private final Image background;
-    
+    private int widthDragged = 0, heightDragged = 0;
+
     public WorkspacePanel() {
         setLayout(null);
-        
+
+        try {
+            background = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/assets/other/background.png")));
+        } catch (IOException e) {
+            throw new RuntimeException("Error on get background image.");
+        }
+
+        panelX = 0;
+        panelY = 0;
+
         JDragAndDropPanel dragAndDrop = new JDragAndDropPanel();
         dragAndDrop.setBackground(Color.BLUE);
         dragAndDrop.setBounds(100, 100, 40, 40);
@@ -30,19 +40,11 @@ public class WorkspacePanel extends JPanel {
         JDragAndDropPanel dragAndDrop3 = new JDragAndDropPanel();
         dragAndDrop3.setBackground(Color.GREEN);
         dragAndDrop3.setBounds(300, 200, 40, 40);
-        
-        panelX = 0;
-        panelY = 0;
-        
+
         add(dragAndDrop);
         add(dragAndDrop2);
         add(dragAndDrop3);
 
-        try {
-            background = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/assets/other/background.png")));
-        } catch (IOException e) {
-            throw new RuntimeException("Error on get background image.");
-        }
 
         MouseAdapter mouseAdapter = new MouseAdapter() {
             private Point lastPoint;
@@ -74,7 +76,7 @@ public class WorkspacePanel extends JPanel {
                     int newComponentY = component.getY() - draggedY;
                     component.setLocation(newComponentX, newComponentY);
                 }
-                
+
                 lastPoint = event.getPoint();
                 repaint();
             }
@@ -82,39 +84,38 @@ public class WorkspacePanel extends JPanel {
 
         addMouseListener(mouseAdapter);
         addMouseMotionListener(mouseAdapter);
+        addMouseWheelListener(mouseAdapter);
     }
-    
-    private int widthDragged = 0, heightDragged = 0;
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        
+
         Graphics2D g2D = (Graphics2D) g;
-        
+
         int cellSize = background.getHeight(null);
 
-        int minWidth =- cellSize - widthDragged;
+        int minWidth = -cellSize - widthDragged;
         int maxWidth = getWidth() + cellSize;
-        int minHeight =- cellSize - heightDragged;
+        int minHeight = -cellSize - heightDragged;
         int maxHeight = getHeight() + cellSize;
-        
+
         int width = minWidth;
         int height = minHeight;
-        
+
         if (widthDragged >= cellSize || widthDragged <= -cellSize) {
             widthDragged = 0;
         }
-        
+
         if (heightDragged >= cellSize || heightDragged <= -cellSize) {
             heightDragged = 0;
         }
-        
+
         while (width < maxWidth && height < maxHeight) {
             g2D.drawImage(background, width, height, cellSize, cellSize, null);
 
             width += cellSize;
-            
+
             if (width >= maxWidth) {
                 width = minWidth;
                 height += cellSize;
