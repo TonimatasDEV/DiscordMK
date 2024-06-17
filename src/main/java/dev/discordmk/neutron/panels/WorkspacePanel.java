@@ -1,5 +1,6 @@
 package dev.discordmk.neutron.panels;
 
+import dev.discordmk.neutron.ProjectFrame;
 import dev.discordmk.neutron.api.JDragAndDropPanel;
 
 import javax.imageio.ImageIO;
@@ -16,7 +17,7 @@ public class WorkspacePanel extends JPanel {
     private int panelY;
     private int widthDragged = 0, heightDragged = 0;
 
-    public WorkspacePanel() {
+    public WorkspacePanel(ProjectFrame frame) {
         setLayout(null);
 
         try {
@@ -36,18 +37,30 @@ public class WorkspacePanel extends JPanel {
         dragAndDrop2.setBackground(Color.RED);
         dragAndDrop2.setBounds(200, 400, 40, 40);
 
-
         JDragAndDropPanel dragAndDrop3 = new JDragAndDropPanel();
         dragAndDrop3.setBackground(Color.GREEN);
         dragAndDrop3.setBounds(300, 200, 40, 40);
+        
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.PINK);
+        panel.setBounds(800/2, 600/2, 40, 40);
 
+
+        add(panel);
         add(dragAndDrop);
         add(dragAndDrop2);
         add(dragAndDrop3);
 
-
         MouseAdapter mouseAdapter = new MouseAdapter() {
             private Point lastPoint;
+
+            @Override
+            public void mouseMoved(MouseEvent event) {
+                int x = panelX + (event.getX() - getWidth() / 2);
+                int y = panelY - (event.getY() - getHeight() / 2);
+
+                frame.bottomPanel.coordinates.setText("x: " + x + " y: " + y);
+            }
 
             @Override
             public void mousePressed(MouseEvent event) {
@@ -68,7 +81,7 @@ public class WorkspacePanel extends JPanel {
                 widthDragged += draggedX;
                 heightDragged += draggedY;
                 
-                panelX -= draggedX;
+                panelX += draggedX;
                 panelY -= draggedY;
 
                 for (Component component : getComponents()) {
@@ -92,7 +105,7 @@ public class WorkspacePanel extends JPanel {
         super.paintComponent(g);
 
         Graphics2D g2D = (Graphics2D) g;
-
+        
         int cellSize = background.getHeight(null);
 
         int minWidth = -cellSize - widthDragged;

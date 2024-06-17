@@ -10,6 +10,6 @@ public class Main extends JFrame {
 
         //NeutronLoginFrame loginFrame = new NeutronLoginFrame();
 
-        new NeutronFrame();
+        new ProjectFrame();
     }
 }
