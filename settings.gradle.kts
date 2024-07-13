@@ -5,5 +5,5 @@ pluginManagement {
     }
 }
 
-rootProject.name = "neutron"
+rootProject.name = "DiscordMK"
 
