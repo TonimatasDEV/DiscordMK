@@ -6,7 +6,6 @@ public class NeutronMenuBar extends JMenuBar {
     public NeutronMenuBar() {
         JMenu fileMenu = new JMenu("File");
 
-
         JMenuItem openItem = new JMenuItem("Open");
         JMenuItem saveItem = new JMenuItem("Save");
         JMenuItem exitItem = new JMenuItem("Exit");
