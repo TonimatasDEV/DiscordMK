@@ -15,3 +15,11 @@ dependencies {
     implementation("dev.discordmk:quark:1.0.0")
     implementation("com.formdev:flatlaf:3.4")
 }
+
+tasks.shadowJar {
+    manifest {
+        attributes(
+            "Main-Class" to "dev.tonimatas.discordmk.MainKt"
+        )
+    }
+}
