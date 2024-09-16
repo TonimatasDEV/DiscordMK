@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "2.0.0"
+    java
     id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
@@ -12,7 +12,6 @@ repositories {
 }
 
 dependencies {
-    implementation("dev.discordmk:quark:1.0.0")
     implementation("com.formdev:flatlaf:3.4")
 }
 
