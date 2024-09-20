@@ -8,10 +8,10 @@ import dev.tonimatas.discordmk.util.AssetGetter;
 import javax.swing.*;
 import java.awt.*;
 
-public class ProjectFrame extends JFrame {
+public class WorkspaceFrame extends JFrame {
     public BottomPanel bottomPanel;
 
-    public ProjectFrame() {
+    public WorkspaceFrame() {
         super("DiscordMK");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(800, 600);

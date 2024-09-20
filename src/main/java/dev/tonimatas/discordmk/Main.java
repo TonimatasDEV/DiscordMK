@@ -1,7 +1,7 @@
 package dev.tonimatas.discordmk;
 
 import com.formdev.flatlaf.FlatDarkLaf;
-import dev.tonimatas.discordmk.frames.ProjectFrame;
+import dev.tonimatas.discordmk.frames.WorkspaceFrame;
 
 import javax.swing.*;
 
@@ -11,6 +11,6 @@ public class Main extends JFrame {
 
         //NeutronLoginFrame loginFrame = new NeutronLoginFrame();
 
-        new ProjectFrame();
+        new WorkspaceFrame();
     }
 }

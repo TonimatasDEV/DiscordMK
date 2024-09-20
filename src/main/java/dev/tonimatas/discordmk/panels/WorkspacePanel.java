@@ -1,7 +1,7 @@
 package dev.tonimatas.discordmk.panels;
 
 import dev.tonimatas.discordmk.api.JDragAndDropPanel;
-import dev.tonimatas.discordmk.frames.ProjectFrame;
+import dev.tonimatas.discordmk.frames.WorkspaceFrame;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -17,7 +17,8 @@ public class WorkspacePanel extends JPanel {
     private int panelY;
     private int widthDragged = 0, heightDragged = 0;
 
-    public WorkspacePanel(ProjectFrame frame) {
+    public WorkspacePanel(WorkspaceFrame frame) {
+        MouseAdapter mouseAdapter = getMouseAdapter(this, frame);
         setLayout(null);
 
         try {
@@ -50,50 +51,6 @@ public class WorkspacePanel extends JPanel {
         add(dragAndDrop);
         add(dragAndDrop2);
         add(dragAndDrop3);
-
-        MouseAdapter mouseAdapter = new MouseAdapter() {
-            private Point lastPoint;
-
-            @Override
-            public void mouseMoved(MouseEvent event) {
-                int x = panelX + (event.getX() - getWidth() / 2);
-                int y = panelY - (event.getY() - getHeight() / 2);
-
-                frame.bottomPanel.coordinates.setText("x: " + x + " y: " + y);
-            }
-
-            @Override
-            public void mousePressed(MouseEvent event) {
-                lastPoint = event.getPoint();
-                event.getComponent().setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent event) {
-                event.getComponent().setCursor(Cursor.getDefaultCursor());
-            }
-
-            @Override
-            public void mouseDragged(MouseEvent event) {
-                int draggedX = lastPoint.x - event.getPoint().x;
-                int draggedY = lastPoint.y - event.getPoint().y;
-
-                widthDragged += draggedX;
-                heightDragged += draggedY;
-                
-                panelX += draggedX;
-                panelY -= draggedY;
-
-                for (Component component : getComponents()) {
-                    int newComponentX = component.getX() - draggedX;
-                    int newComponentY = component.getY() - draggedY;
-                    component.setLocation(newComponentX, newComponentY);
-                }
-
-                lastPoint = event.getPoint();
-                repaint();
-            }
-        };
 
         addMouseListener(mouseAdapter);
         addMouseMotionListener(mouseAdapter);
@@ -134,5 +91,51 @@ public class WorkspacePanel extends JPanel {
                 height += cellSize;
             }
         }
+    }
+    
+    private static MouseAdapter getMouseAdapter(WorkspacePanel panel, WorkspaceFrame frame) {
+        return new MouseAdapter() {
+            private Point lastPoint;
+
+            @Override
+            public void mouseMoved(MouseEvent event) {
+                int x = panel.panelX + (event.getX() - panel.getWidth() / 2);
+                int y = panel.panelY - (event.getY() - panel.getHeight() / 2);
+
+                frame.bottomPanel.coordinates.setText("x: " + x + " y: " + y);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent event) {
+                lastPoint = event.getPoint();
+                event.getComponent().setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent event) {
+                event.getComponent().setCursor(Cursor.getDefaultCursor());
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent event) {
+                int draggedX = lastPoint.x - event.getPoint().x;
+                int draggedY = lastPoint.y - event.getPoint().y;
+
+                panel.widthDragged += draggedX;
+                panel.heightDragged += draggedY;
+
+                panel.panelX += draggedX;
+                panel.panelY -= draggedY;
+
+                for (Component component : panel.getComponents()) {
+                    int newComponentX = component.getX() - draggedX;
+                    int newComponentY = component.getY() - draggedY;
+                    component.setLocation(newComponentX, newComponentY);
+                }
+
+                lastPoint = event.getPoint();
+                panel.repaint();
+            }
+        };
     }
 }
